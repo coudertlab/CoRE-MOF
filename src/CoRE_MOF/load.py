@@ -1,17 +1,18 @@
 from . import data
 
 import contextlib
+import csv
 from importlib import resources
 import os
 import tarfile
 import tempfile
 
 
-# List of datasets available, and corresponding file
+# List of datasets available, and corresponding filenames
 __datasets = {
-    "2014": "2014.tar.xz",
-    "2019-ASR": "2019-ASR.tar.xz",
-    "2019-FSR": "2019-FSR.tar.xz",
+    "2014": "2014",
+    "2019-ASR": "2019-ASR",
+    "2019-FSR": "2019-FSR",
 }
 
 # Cache of the structures in each dataset
@@ -37,15 +38,15 @@ def list_structures(dataset):
     if dataset in __dataset_structlist:
         return __dataset_structlist[dataset]
 
-    path = resources.files(data) / __datasets[dataset]
-    with tarfile.open(path, 'r') as tar:
-        # Select nonempty regular .cif files
-        res = [x.name for x in tar.getmembers()
-               if x.size > 0 and x.isfile() and x.name.endswith('.cif')]
-        # Forget directory structure
-        res = [x.split('/')[-1] for x in res]
-        # Files starting with . are macOS tar pseudo-files
-        res = [x for x in res if x[0] != '.']
+    path = resources.files(data) / (__datasets[dataset] + '.csv')
+
+    with open(path, 'r', newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        res = [row[0] for row in reader]
+
+    # Check we have header and remove it
+    assert res[0] == "filename"
+    res = res[1:]
 
     if len(set(res)) != len(res):
         raise ValueError("dataset contains duplicate entries")
@@ -62,12 +63,14 @@ def get_CIF_structure_data(dataset, entry):
     if dataset not in __datasets:
         raise KeyError("unknown dataset")
 
-    path = resources.files(data) / __datasets[dataset]
+    path = resources.files(data) / (__datasets[dataset] + '.tar.xz')
+    fname = entry + '.cif'
     member = None
     with tarfile.open(path, 'r') as tar:
         for x in tar.getmembers():
-            if x.size > 0 and x.isfile() and x.name.endswith(entry):
+            if x.size > 0 and x.isfile() and x.name.split('/')[-1] == fname:
                 member = x
+                break
 
         if member:
             res = tar.extractfile(member).read()
