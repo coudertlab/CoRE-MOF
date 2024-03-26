@@ -10,8 +10,8 @@ import tempfile
 # List of datasets available, and corresponding file
 __datasets = {
     "2014": "2014.tar.xz",
-    # "2014-DFT-optimized": "CoRE-MOF-1.0-DFT-minimized.tar.xz",
-    # "2024-ASR": "2024-ASR.tar.xz",
+    "2019-ASR": "2019-ASR.tar.xz",
+    "2019-FSR": "2019-FSR.tar.xz",
 }
 
 # Cache of the structures in each dataset
@@ -46,8 +46,6 @@ def list_structures(dataset):
         res = [x.split('/')[-1] for x in res]
         # Files starting with . are macOS tar pseudo-files
         res = [x for x in res if x[0] != '.']
-        # Remove the .cif suffix
-        # res = [x.replace('.cif', '') for x in res]
 
     if len(set(res)) != len(res):
         raise ValueError("dataset contains duplicate entries")

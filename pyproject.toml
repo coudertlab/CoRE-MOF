@@ -16,7 +16,9 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Chemistry",
 ]
 dependencies = [
-  "pymatgen",    
+  "pandas",
+  "pymatgen",
+  "pytest",
 ]
 
 [project.urls]
