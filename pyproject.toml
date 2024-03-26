@@ -24,3 +24,7 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/coudertlab/CoRE-MOF"
 Issues = "https://github.com/coudertlab/CoRE-MOF/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
