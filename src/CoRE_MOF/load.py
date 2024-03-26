@@ -119,3 +119,29 @@ def get_structure(dataset, entry):
 
     res = get_CIF_structure_data(dataset, entry)
     return Structure.from_str(res.decode('utf-8'), fmt='cif')
+
+
+def all_structures(dataset):
+    """
+    Iterator over all structures from a chosen dataset,
+    as pymatgen Structure objects.
+
+    Warning: This is a slow function, because unpacking
+    the entire dataset and parsing all CIF files is slow.
+    """
+
+    from pymatgen.core import Structure
+
+    if dataset not in __datasets:
+        raise KeyError("unknown dataset")
+
+    path = resources.files(data) / (__datasets[dataset] + '.tar.xz')
+    with tarfile.open(path, 'r') as tar:
+        for x in tar.getmembers():
+            # Select nonempty regular .cif files
+            if x.size > 0 and x.isfile() and x.name.endswith('.cif'):
+                # Forget directory structure
+                name = x.name.split('/')[-1].replace('.cif', '')
+                if name[0] != '.':
+                    cif = tar.extractfile(x).read()
+                    yield name, Structure.from_str(cif.decode('utf-8'), fmt='cif')
