@@ -39,7 +39,6 @@ def list_structures(dataset):
         return __dataset_structlist[dataset]
 
     path = resources.files(data) / (__datasets[dataset] + '.csv')
-
     with open(path, 'r', newline='') as csvfile:
         reader = csv.reader(csvfile)
         res = [row[0] for row in reader]
@@ -53,6 +52,21 @@ def list_structures(dataset):
 
     __dataset_structlist[dataset] = res
     return res
+
+
+def get_properties(dataset):
+    """
+    Return a table of properties for materials in a given
+    data, as a pandas.DataFrame object
+    """
+
+    import pandas
+
+    if dataset not in __datasets:
+        raise KeyError("unknown dataset")
+
+    path = resources.files(data) / (__datasets[dataset] + '.csv')
+    return pandas.read_csv(path)
 
 
 def get_CIF_structure_data(dataset, entry):
