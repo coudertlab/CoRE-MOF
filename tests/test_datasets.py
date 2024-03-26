@@ -1,3 +1,6 @@
+import pytest
+
+
 def test_datasets_1():
     from CoRE_MOF import list_datasets
     x = list_datasets()
@@ -27,3 +30,10 @@ def test_datasets_3():
     x = CoRE_MOF.list_structures("2019-FSR")
     assert isinstance(x, list)
     assert len(x) == 7061
+
+
+def test_datasets_4():
+    import CoRE_MOF
+
+    with pytest.raises(KeyError):
+        s = CoRE_MOF.list_structures("toto")
