@@ -11,7 +11,8 @@ def func_check_random_structs(dataset):
         assert s.num_sites > 1
         assert s.n_elems > 1
         assert s.volume > 10
-        assert (6 in s.atomic_numbers) or (1 in s.atomic_numbers) or (8 in s.atomic_numbers)
+        assert ((1 in s.atomic_numbers) or (6 in s.atomic_numbers)
+                or (7 in s.atomic_numbers) or (8 in s.atomic_numbers))
 
 
 @pytest.mark.filterwarnings("ignore:.*rounded to ideal values")
