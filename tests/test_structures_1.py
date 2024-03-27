@@ -40,6 +40,6 @@ def test_structures_2():
     import CoRE_MOF
 
     with pytest.raises(KeyError):
-        s = CoRE_MOF.get_structure("2019-ASR", "trucmuche")
+        CoRE_MOF.get_structure("2019-ASR", "trucmuche")
     with pytest.raises(KeyError):
-        s = CoRE_MOF.get_structure("2019-WTF", "ZUZZEB_clean")
+        CoRE_MOF.get_structure("2019-WTF", "ZUZZEB_clean")
