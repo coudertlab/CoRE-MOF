@@ -1,0 +1,8 @@
+# Dependencie of package, matching `pyproject.toml`
+pandas
+pymatgen
+# Build/test/doc dependencies
+build
+flake8
+hatch
+pytest
