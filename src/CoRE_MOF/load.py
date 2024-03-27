@@ -11,8 +11,8 @@ import tempfile
 # List of datasets available, and corresponding filenames
 __datasets = {
     "2014": "2014",
-    # "2019-ASR": "2019-ASR",
-    # "2019-FSR": "2019-FSR",
+    "2019-ASR": "2019-ASR",
+    "2019-FSR": "2019-FSR",
 }
 
 # Cache of the structures in each dataset
