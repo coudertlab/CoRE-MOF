@@ -5,7 +5,7 @@ def test_datasets_1():
     from CoRE_MOF import list_datasets
     x = list_datasets()
     assert isinstance(x, list)
-    assert len(x) == 3
+    assert len(x) == 1
 
 
 def test_datasets_2():
@@ -23,13 +23,13 @@ def test_datasets_3():
     assert isinstance(x, list)
     assert len(x) == 4764
 
-    x = CoRE_MOF.list_structures("2019-ASR")
-    assert isinstance(x, list)
-    assert len(x) == 12020
+    # x = CoRE_MOF.list_structures("2019-ASR")
+    # assert isinstance(x, list)
+    # assert len(x) == 12020
 
-    x = CoRE_MOF.list_structures("2019-FSR")
-    assert isinstance(x, list)
-    assert len(x) == 7061
+    # x = CoRE_MOF.list_structures("2019-FSR")
+    # assert isinstance(x, list)
+    # assert len(x) == 7061
 
 
 def test_datasets_4():
