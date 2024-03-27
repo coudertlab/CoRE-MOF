@@ -1,7 +1,7 @@
 # CoRE-MOF Python package
 
-![MIT](https://img.shields.io/badge/code license-MIT-blue)
-![CC-BY](https://img.shields.io/badge/data license-CC BY 4.0-blue)
+![MIT](https://img.shields.io/badge/code_license-MIT-blue)
+![CC-BY](https://img.shields.io/badge/data_license-CC_BY_4.0-blue)
 ![Build status](https://github.com/coudertlab/CoRE-MOF/actions/workflows/python-test.yml/badge.svg)
 
 Easy access to the various versions of the [CoRE MOF databases](https://cmcp-group.github.io/database-tools/),
