@@ -1,6 +1,6 @@
 [project]
 name = "CoRE-MOF"
-version = "2014.1"
+version = "2019.1"
 authors = [
   { name="François-Xavier Coudert", email="fxcoudert@gmail.com" },
 ]
