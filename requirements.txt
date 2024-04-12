@@ -1,4 +1,4 @@
-# Dependencie of package, matching `pyproject.toml`
+# Dependencies of package, matching `pyproject.toml`
 pandas
 pymatgen
 # Build/test/doc dependencies
