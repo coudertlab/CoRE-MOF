@@ -47,5 +47,5 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        path: dist
+        path: dist-${{ matrix.python-version }}
         retention-days: 2
