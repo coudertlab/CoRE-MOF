@@ -3,6 +3,7 @@ from . import data
 import contextlib
 import csv
 from importlib import resources
+from pathlib import Path
 import os
 import tarfile
 import tempfile
@@ -27,6 +28,14 @@ def list_datasets():
     return list(__datasets.keys())
 
 
+def data_path():
+    try:
+        return resources.files(data)
+    except TypeError as e:
+        # Python 3.9 does not natively return a Path object
+        return Path(data.__path__[0])
+
+
 def list_structures(dataset):
     """
     List of structures available in a given dataset
@@ -38,7 +47,7 @@ def list_structures(dataset):
     if dataset in __dataset_structlist:
         return __dataset_structlist[dataset]
 
-    path = resources.files(data) / (__datasets[dataset] + '.csv')
+    path = data_path() / (__datasets[dataset] + '.csv')
     with open(path, 'r', newline='') as csvfile:
         reader = csv.reader(csvfile)
         res = [row[0] for row in reader]
@@ -65,7 +74,7 @@ def get_properties(dataset):
     if dataset not in __datasets:
         raise KeyError("unknown dataset")
 
-    path = resources.files(data) / (__datasets[dataset] + '.csv')
+    path = data_path() / (__datasets[dataset] + '.csv')
     return pandas.read_csv(path)
 
 
@@ -77,7 +86,7 @@ def get_CIF_structure_data(dataset, entry):
     if dataset not in __datasets:
         raise KeyError("unknown dataset")
 
-    path = resources.files(data) / (__datasets[dataset] + '.tar.xz')
+    path = data_path() / (__datasets[dataset] + '.tar.xz')
     fname = entry + '.cif'
     member = None
     with tarfile.open(path, 'r') as tar:
@@ -135,7 +144,7 @@ def all_structures(dataset):
     if dataset not in __datasets:
         raise KeyError("unknown dataset")
 
-    path = resources.files(data) / (__datasets[dataset] + '.tar.xz')
+    path = data_path() / (__datasets[dataset] + '.tar.xz')
     with tarfile.open(path, 'r') as tar:
         for x in tar.getmembers():
             # Select nonempty regular .cif files
